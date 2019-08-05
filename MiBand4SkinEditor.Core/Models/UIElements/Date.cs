@@ -9,17 +9,21 @@ using SixLabors.Primitives;
 
 namespace MiBand4SkinEditor.Core.Models.UIElements {
     // currently only supports month and day in one line
-    public class Date: IElement {
+    public class Date : IElement {
         public Slice<Image<Argb32>> Numbers;
         public ArrayElement<Image<Argb32>> Divider;
 
+        public Date(Slice<Image<Argb32>> numbers, ArrayElement<Image<Argb32>> divider) {
+            this.Numbers = numbers;
+            this.Divider = divider;
+        }
 
         public int X { get; set; }
         public int Y { get; set; }
         public int Width => this.DayOneX + this.NumberDistance - this.X + this.NumberDistance;
         public int Height => this.Numbers[0].Height + 2 * this.NumberMargin;
-        
-        public int NumberMargin { get; set; } = 2;
+
+        public int NumberMargin { get; set; } = 0;
         private int? numberWidth = null;
 
         // By default it's Numbers[0]'s width + NumberMargin. If you manually set this value, NumberMargin will be ignored.
@@ -46,7 +50,10 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
         public int DividerX => this.MonthOneX + this.NumberDistance;
         public int DividerY => this.Y;
 
-        public int DayTenX => this.DividerX + this.Divider.Item.Width + this.NumberMargin + this.MonthDateDistance;
+        public int DayTenX => this.Divider == null
+                                  ? this.MonthOneX + this.NumberDistance + this.MonthDateDistance
+                                  : this.DividerX + this.Divider.Item.Width + this.NumberMargin;
+
         public int DayTenY => this.Y;
         public int DayOneX => this.DayTenX + this.NumberDistance;
         public int DayOneY => this.Y;
@@ -58,7 +65,7 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
             canvas.Mutate(x => x.Fill(Brushes.Solid(new Argb32(0, 0, 0, 0))));
             canvas.Mutate(x => x.DrawImage(this.Numbers[1], new Point(this.MonthTenX, this.NumberMargin), PixelColorBlendingMode.Overlay, 1));
             canvas.Mutate(x => x.DrawImage(this.Numbers[2], new Point(this.MonthOneX, this.NumberMargin), PixelColorBlendingMode.Overlay, 1));
-            canvas.Mutate(x => x.DrawImage(this.Divider.Item, new Point(this.DividerX, this.NumberMargin), PixelColorBlendingMode.Overlay, 1));
+            if (this.Divider != null) canvas.Mutate(x => x.DrawImage(this.Divider.Item, new Point(this.DividerX, this.NumberMargin), PixelColorBlendingMode.Overlay, 1));
             canvas.Mutate(x => x.DrawImage(this.Numbers[3], new Point(this.DayTenX, this.NumberMargin), PixelColorBlendingMode.Overlay, 1));
             canvas.Mutate(x => x.DrawImage(this.Numbers[4], new Point(this.DayOneX, this.NumberMargin), PixelColorBlendingMode.Overlay, 1));
 

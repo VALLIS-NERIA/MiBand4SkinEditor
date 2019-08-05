@@ -33,24 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="SixLabors.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SixLabors.Core.1.0.0-beta0007\lib\netstandard2.0\SixLabors.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="SixLabors.Fonts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SixLabors.Fonts.1.0.0-beta0008\lib\netstandard2.0\SixLabors.Fonts.dll</HintPath>
-    </Reference>
-    <Reference Include="SixLabors.ImageSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SixLabors.ImageSharp.1.0.0-beta0006\lib\net472\SixLabors.ImageSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="SixLabors.ImageSharp.Drawing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SixLabors.ImageSharp.Drawing.1.0.0-beta0006\lib\netstandard2.0\SixLabors.ImageSharp.Drawing.dll</HintPath>
-    </Reference>
-    <Reference Include="SixLabors.Shapes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SixLabors.Shapes.1.0.0-beta0008\lib\netstandard2.0\SixLabors.Shapes.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
@@ -117,6 +99,14 @@
       <Project>{3c0b56e4-f22f-4784-be14-70c3077eacd9}</Project>
       <Name>MiBand4SkinEditor.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="SixLabors.ImageSharp">
+      <Version>1.0.0-beta0006</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

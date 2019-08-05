@@ -16,7 +16,7 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
         public int Width => this.MinuteTenX + this.NumberDistance - this.X + this.NumberDistance;
         public int Height => this.Numbers[0].Height + 2 * this.NumberMargin;
 
-        public int NumberMargin { get; set; } = 2;
+        public int NumberMargin { get; set; } = 0;
         private int? numberWidth = null;
 
         // By default it's Numbers[0]'s width + NumberMargin. If you manually set this value, NumberMargin will be ignored.
@@ -55,8 +55,8 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
             canvas.Mutate(x => x.Fill(Brushes.Solid(new Argb32(0, 0, 0, 0))));
             canvas.Mutate(x => x.DrawImage(this.Numbers[1], new Point(this.HourTenX, this.NumberMargin), PixelColorBlendingMode.Overlay, 1));
             canvas.Mutate(x => x.DrawImage(this.Numbers[2], new Point(this.HourOneX, this.NumberMargin), PixelColorBlendingMode.Overlay, 1));
-            canvas.Mutate(x => x.DrawImage(this.Numbers[3], new Point(this.MinuteTenX, this.NumberMargin), PixelColorBlendingMode.Overlay, 1));
-            canvas.Mutate(x => x.DrawImage(this.Numbers[4], new Point(this.MinuteOneX, this.NumberMargin), PixelColorBlendingMode.Overlay, 1));
+            canvas.Mutate(x => x.DrawImage(this.Numbers[4], new Point(this.MinuteTenX, this.NumberMargin), PixelColorBlendingMode.Overlay, 1));
+            canvas.Mutate(x => x.DrawImage(this.Numbers[9], new Point(this.MinuteOneX, this.NumberMargin), PixelColorBlendingMode.Overlay, 1));
 
             return canvas;
         }

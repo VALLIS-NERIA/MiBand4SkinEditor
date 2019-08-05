@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using System;
+using System.Drawing;
 using System.IO;
+using MiBand4SkinEditor.Core.Models.UIElements;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Advanced;
 using SixLabors.ImageSharp.Formats.Bmp;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;
+using Image = SixLabors.ImageSharp.Image;
 
 namespace MiBand4SkinEditor.Core {
     public static class ImageSharpExtensions {
@@ -28,6 +31,19 @@ namespace MiBand4SkinEditor.Core {
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return Image.Load<TPixel>(memoryStream);
+        }
+
+        public static System.Drawing.Bitmap RenderBitmap(this IElement element) {
+            Bitmap bitmap;
+            using (var img = element.Render()) {
+                bitmap = img.ToBitmap();
+            }
+
+            return bitmap;
+        }
+
+        public static void DrawElement(this System.Drawing.Graphics g, Models.UIElements.IElement element) {
+            g.DrawImage(element.RenderBitmap(), element.X, element.Y, element.Width, element.Height);
         }
     }
 }

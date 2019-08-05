@@ -73,11 +73,24 @@ namespace MiBand4SkinEditor.SimpleGUI {
                 X = this.json.Time.Hours.Tens.X,
                 Y = this.json.Time.Hours.Tens.Y,
             };
+            this.date = new Date(
+                new Slice<Image<Argb32>>(
+                    this.images,
+                    this.json.Date.MonthAndDay.OneLine.Number.ImageIndex,
+                    (int) this.json.Date.MonthAndDay.OneLine.Number.ImageIndex),
+                null)
+            {
+                X = this.json.Date.MonthAndDay.OneLine.Number.TopLeftX,
+                Y = this.json.Date.MonthAndDay.OneLine.Number.TopLeftY,
+            };
+
             var clockImg = this.clock.Render().ToBitmap();
+            var dateImg = this.date.Render().ToBitmap();
 
             this.pictureBox1.BackgroundImage = this.images[0].ToBitmap();
             var g = Graphics.FromImage(this.pictureBox1.BackgroundImage);
-            g.DrawImage(clockImg, this.clock.X, this.clock.Y,this.clock.Width,this.clock.Height);
+            g.DrawElement(this.clock);
+            g.DrawElement(this.date);
             //this.pictureBox1.Image = clockImg;
         }
     }
