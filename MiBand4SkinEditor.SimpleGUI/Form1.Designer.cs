@@ -25,42 +25,54 @@ namespace MiBand4SkinEditor.SimpleGUI {
         /// 使用代码编辑器修改此方法的内容。
         /// </summary>
         private void InitializeComponent() {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.editingPictureBox = new System.Windows.Forms.PictureBox();
+            this.originBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.editingPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.originBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // editingPictureBox
             // 
-            this.pictureBox1.AllowDrop = true;
-            this.pictureBox1.BackColor = Color.Transparent;
-            this.pictureBox1.Parent = this;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(120, 240);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.PictureBox1_DragDrop);
-            this.pictureBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.PictureBox1_DragEnter);
+            this.editingPictureBox.AllowDrop = true;
+            this.editingPictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.editingPictureBox.Location = new System.Drawing.Point(12, 12);
+            this.editingPictureBox.Name = "editingPictureBox";
+            this.editingPictureBox.Size = new System.Drawing.Size(120, 240);
+            this.editingPictureBox.TabIndex = 0;
+            this.editingPictureBox.TabStop = false;
+            // 
+            // originBox
+            // 
+            this.originBox.AllowDrop = true;
+            this.originBox.BackColor = System.Drawing.Color.Transparent;
+            this.originBox.Location = new System.Drawing.Point(138, 12);
+            this.originBox.Name = "originBox";
+            this.originBox.Size = new System.Drawing.Size(120, 240);
+            this.originBox.TabIndex = 1;
+            this.originBox.TabStop = false;
             // 
             // Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.pictureBox1);
+            this.ClientSize = new System.Drawing.Size(800, 264);
+            this.Controls.Add(this.originBox);
+            this.Controls.Add(this.editingPictureBox);
             this.Name = "Form1";
             this.Text = "Form1";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.editingPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.originBox)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox editingPictureBox;
+        private System.Windows.Forms.PictureBox originBox;
     }
 }
 

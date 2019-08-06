@@ -28,9 +28,9 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
 
         private int x = 0;
         public override int X {
-            get => x;
+            get => this.x;
             set {
-                int shift = value - x;
+                int shift = value - this.x;
                 this.HourTenX += shift;
                 this.HourOneX += shift;
                 this.MinuteTenX += shift;
@@ -41,9 +41,9 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
 
         private int y = 0;
         public override int Y {
-            get => y;
+            get => this.y;
             set {
-                int shift = value - y;
+                int shift = value - this.y;
                 this.HourTenY += shift;
                 this.HourOneY += shift;
                 this.MinuteTenY += shift;

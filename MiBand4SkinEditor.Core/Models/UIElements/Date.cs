@@ -11,9 +11,9 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
     // currently only supports month and day in one line
     public class Date : IElement {
         public Slice<Image<Argb32>> Numbers;
-        public ArrayElement<Image<Argb32>> Divider;
+        public Pick<Image<Argb32>> Divider;
 
-        public Date(Slice<Image<Argb32>> numbers, ArrayElement<Image<Argb32>> divider) {
+        public Date(Slice<Image<Argb32>> numbers, Pick<Image<Argb32>> divider) {
             this.Numbers = numbers;
             this.Divider = divider;
         }

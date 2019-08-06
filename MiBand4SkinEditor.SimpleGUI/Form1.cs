@@ -31,18 +31,12 @@ namespace MiBand4SkinEditor.SimpleGUI {
 
         private SkinManifestJson json;
         private ClockBase clock;
-        private Date date;
+        private SeparatedDate date;
 
-        private void PictureBox1_DragEnter(object sender, DragEventArgs e) {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
-                e.Effect = DragDropEffects.Link;
-            }
-            else {
-                e.Effect = DragDropEffects.None;
-            }
+
+        private void Refresh() {
+
         }
-
-        private void PictureBox1_DragDrop(object sender, DragEventArgs e) { }
 
         private void Form1_DragEnter(object sender, DragEventArgs e) {
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
@@ -69,26 +63,26 @@ namespace MiBand4SkinEditor.SimpleGUI {
                           .ToArray();
             this.json = SkinManifestJson.FromJson(File.ReadAllText(files.First(n => n.EndsWith(".json", StringComparison.OrdinalIgnoreCase))));
             this.clock = SeparatedClock.FromJson(this.json, this.images);
-            this.date = new Date(
-                new Slice<Image<Argb32>>(
-                    this.images,
-                    this.json.Date.MonthAndDay.OneLine.Number.ImageIndex,
-                    (int) this.json.Date.MonthAndDay.OneLine.Number.ImageIndex),
-                null)
-            {
-                X = this.json.Date.MonthAndDay.OneLine.Number.TopLeftX,
-                Y = this.json.Date.MonthAndDay.OneLine.Number.TopLeftY,
-            };
+            //this.date = new Date(
+            //    new Slice<Image<Argb32>>(
+            //        this.images,
+            //        this.json.Date.MonthAndDay.OneLine.Number.ImageIndex,
+            //        (int) this.json.Date.MonthAndDay.OneLine.Number.ImageIndex),
+            //    null)
+            //{
+            //    X = this.json.Date.MonthAndDay.OneLine.Number.TopLeftX,
+            //    Y = this.json.Date.MonthAndDay.OneLine.Number.TopLeftY,
+            //};
 
+            this.date = SeparatedDate.FromJson(this.json, this.images);
             var clockImg = this.clock.Render(1,6,4,9).ToBitmap();
-            var dateImg = this.date.Render().ToBitmap();
+            //var dateImg = this.date.Render().ToBitmap();
 
-            this.pictureBox1.BackgroundImage = this.images[0].ToBitmap();
-            var g = Graphics.FromImage(this.pictureBox1.BackgroundImage);
+            this.editingPictureBox.BackgroundImage = this.images[0].ToBitmap();
+            var g = Graphics.FromImage(this.editingPictureBox.BackgroundImage);
             g.DrawElement(clockImg, this.clock);
             g.DrawElement(this.date);
             g.Dispose();
-            this.pictureBox1.BackgroundImage.Save("why.jpg");
             //this.pictureBox1.Image = clockImg;
         }
     }
