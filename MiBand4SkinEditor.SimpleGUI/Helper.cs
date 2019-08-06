@@ -43,7 +43,11 @@ namespace MiBand4SkinEditor.Core {
         }
 
         public static void DrawElement(this System.Drawing.Graphics g, Models.UIElements.IElement element) {
-            g.DrawImage(element.RenderBitmap(), element.X, element.Y, element.Width, element.Height);
+            g.DrawImage(element.RenderBitmap(), element.X, element.Y);
+        }
+
+        public static void DrawElement(this System.Drawing.Graphics g, System.Drawing.Image img, Models.UIElements.IElement element) {
+            g.DrawImage(img, element.X, element.Y);
         }
     }
 }

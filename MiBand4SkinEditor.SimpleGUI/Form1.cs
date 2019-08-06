@@ -30,7 +30,7 @@ namespace MiBand4SkinEditor.SimpleGUI {
         private MSImage[] mImages;
 
         private SkinManifestJson json;
-        private Clock clock;
+        private ClockBase clock;
         private Date date;
 
         private void PictureBox1_DragEnter(object sender, DragEventArgs e) {
@@ -68,11 +68,7 @@ namespace MiBand4SkinEditor.SimpleGUI {
                           //.Select(System.Drawing.Image.FromFile)
                           .ToArray();
             this.json = SkinManifestJson.FromJson(File.ReadAllText(files.First(n => n.EndsWith(".json", StringComparison.OrdinalIgnoreCase))));
-            this.clock = new Clock(new Slice<Image<Argb32>>(this.images, this.json.Time.Hours.Tens.ImageIndex, (int) this.json.Time.Hours.Tens.ImagesCount))
-            {
-                X = this.json.Time.Hours.Tens.X,
-                Y = this.json.Time.Hours.Tens.Y,
-            };
+            this.clock = SeparatedClock.FromJson(this.json, this.images);
             this.date = new Date(
                 new Slice<Image<Argb32>>(
                     this.images,
@@ -84,13 +80,15 @@ namespace MiBand4SkinEditor.SimpleGUI {
                 Y = this.json.Date.MonthAndDay.OneLine.Number.TopLeftY,
             };
 
-            var clockImg = this.clock.Render().ToBitmap();
+            var clockImg = this.clock.Render(1,6,4,9).ToBitmap();
             var dateImg = this.date.Render().ToBitmap();
 
             this.pictureBox1.BackgroundImage = this.images[0].ToBitmap();
             var g = Graphics.FromImage(this.pictureBox1.BackgroundImage);
-            g.DrawElement(this.clock);
+            g.DrawElement(clockImg, this.clock);
             g.DrawElement(this.date);
+            g.Dispose();
+            this.pictureBox1.BackgroundImage.Save("why.jpg");
             //this.pictureBox1.Image = clockImg;
         }
     }

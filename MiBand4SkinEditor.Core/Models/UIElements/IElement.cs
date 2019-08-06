@@ -10,7 +10,5 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
 
         int X { get; set; }
         int Y { get; set; }
-        int Width { get; }
-        int Height { get; }
     }
 }

@@ -20,8 +20,6 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
 
         public int X { get; set; }
         public int Y { get; set; }
-        public int Width => this.DayOneX + this.NumberDistance - this.X + this.NumberDistance;
-        public int Height => this.Numbers[0].Height + 2 * this.NumberMargin;
 
         public int NumberMargin { get; set; } = 0;
         private int? numberWidth = null;
@@ -61,7 +59,7 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
         #endregion
 
         public Image<Argb32> Render() {
-            var canvas = new Image<Argb32>(this.Width, this.Height);
+            var canvas = new Image<Argb32>(Constants.PanelWidth, Constants.PanelHeight);
             canvas.Mutate(x => x.Fill(Brushes.Solid(new Argb32(0, 0, 0, 0))));
             canvas.Mutate(x => x.DrawImage(this.Numbers[1], new Point(this.MonthTenX, this.NumberMargin), PixelColorBlendingMode.Overlay, 1));
             canvas.Mutate(x => x.DrawImage(this.Numbers[2], new Point(this.MonthOneX, this.NumberMargin), PixelColorBlendingMode.Overlay, 1));

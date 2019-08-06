@@ -30,10 +30,10 @@ namespace MiBand4SkinEditor.Core.Models.Json {
 
     public partial class Background {
         [JsonProperty("Image")]
-        public Image Image { get; set; }
+        public SingleImage Image { get; set; }
     }
 
-    public partial class Image {
+    public partial class SingleImage {
         [JsonProperty("X")]
         public int X { get; set; }
 
@@ -42,9 +42,11 @@ namespace MiBand4SkinEditor.Core.Models.Json {
 
         [JsonProperty("ImageIndex")]
         public int ImageIndex { get; set; }
+    }
 
-        [JsonProperty("ImagesCount", NullValueHandling = NullValueHandling.Ignore)]
-        public int? ImagesCount { get; set; }
+    public partial class SeriesImage : SingleImage {
+        [JsonProperty("ImagesCount")]
+        public int ImagesCount { get; set; }
     }
 
     public partial class Date {
@@ -52,7 +54,7 @@ namespace MiBand4SkinEditor.Core.Models.Json {
         public MonthAndDay MonthAndDay { get; set; }
 
         [JsonProperty("WeekDay")]
-        public Image WeekDay { get; set; }
+        public SeriesImage WeekDay { get; set; }
 
         [JsonProperty("DayAmPm")]
         public DayAmPm DayAmPm { get; set; }
@@ -91,13 +93,13 @@ namespace MiBand4SkinEditor.Core.Models.Json {
 
     public partial class OneLine {
         [JsonProperty("Number")]
-        public Text2 Number { get; set; }
+        public TwoAnchorElement Number { get; set; }
 
         [JsonProperty("DelimiterImageIndex")]
         public int DelimiterImageIndex { get; set; }
     }
 
-    public partial class Text2 {
+    public partial class TwoAnchorElement {
         [JsonProperty("TopLeftX")]
         public int TopLeftX { get; set; }
 
@@ -164,39 +166,13 @@ namespace MiBand4SkinEditor.Core.Models.Json {
 
     public partial class Battery {
         [JsonProperty("Text")]
-        public Text Text { get; set; }
+        public TwoAnchorElement Text { get; set; }
 
         [JsonProperty("Text2")]
-        public Text2 Text2 { get; set; }
+        public TwoAnchorElement Text2 { get; set; }
 
         [JsonProperty("Icon")]
-        public Image Icon { get; set; }
-    }
-
-    public partial class Text {
-        [JsonProperty("TopLeftX")]
-        public int TopLeftX { get; set; }
-
-        [JsonProperty("TopLeftY")]
-        public int TopLeftY { get; set; }
-
-        [JsonProperty("BottomRightX")]
-        public int BottomRightX { get; set; }
-
-        [JsonProperty("BottomRightY")]
-        public int BottomRightY { get; set; }
-
-        [JsonProperty("Alignment")]
-        public int Alignment { get; set; }
-
-        [JsonProperty("Spacing")]
-        public int Spacing { get; set; }
-
-        [JsonProperty("ImageIndex")]
-        public int ImageIndex { get; set; }
-
-        [JsonProperty("ImagesCount")]
-        public int ImagesCount { get; set; }
+        public SeriesImage Icon { get; set; }
     }
 
     public partial class Bluetooth {
@@ -238,10 +214,10 @@ namespace MiBand4SkinEditor.Core.Models.Json {
 
     public partial class Hours {
         [JsonProperty("Tens")]
-        public Image Tens { get; set; }
+        public SeriesImage Tens { get; set; }
 
         [JsonProperty("Ones")]
-        public Image Ones { get; set; }
+        public SeriesImage Ones { get; set; }
     }
 
     public partial class SkinManifestJson {
@@ -259,7 +235,7 @@ namespace MiBand4SkinEditor.Core.Models.Json {
             DateParseHandling = DateParseHandling.None,
             Converters =
             {
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+                new IsoDateTimeConverter {DateTimeStyles = DateTimeStyles.AssumeUniversal}
             },
         };
     }
