@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System;
 using System.Drawing;
 using System.IO;
 using MiBand4SkinEditor.Core.Models.UIElements;
@@ -43,10 +42,18 @@ namespace MiBand4SkinEditor.Core {
         }
 
         public static void DrawElement(this System.Drawing.Graphics g, Models.UIElements.IElement element) {
+            g.DrawImage(element.RenderBitmap(), 0, 0);
+        }
+
+        public static void DrawImage(this System.Drawing.Graphics g, System.Drawing.Image img) {
+            g.DrawImage(img, 0, 0);
+        }
+
+        public static void DrawElement(this System.Drawing.Graphics g, Models.UIElements.IAnchoredElement element) {
             g.DrawImage(element.RenderBitmap(), element.X, element.Y);
         }
 
-        public static void DrawElement(this System.Drawing.Graphics g, System.Drawing.Image img, Models.UIElements.IElement element) {
+        public static void DrawElement(this System.Drawing.Graphics g, System.Drawing.Image img, Models.UIElements.IAnchoredElement element) {
             g.DrawImage(img, element.X, element.Y);
         }
     }

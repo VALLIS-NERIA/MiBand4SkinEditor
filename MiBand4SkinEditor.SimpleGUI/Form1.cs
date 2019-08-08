@@ -27,15 +27,35 @@ namespace MiBand4SkinEditor.SimpleGUI {
 
         private string skinDirPath;
         private Image<Argb32>[] images;
+        private Pick<Image<Argb32>> backgroundImage;
         private MSImage[] mImages;
 
         private SkinManifestJson json;
         private ClockBase clock;
-        private SeparatedDate date;
+        private FlexDate date;
 
 
-        private void Refresh() {
+        private void Redraw() {
+            var image = this.backgroundImage.Item.ToBitmap();
+            using (var g = Graphics.FromImage(this.editingPictureBox.BackgroundImage)) {
+                g.DrawElement(this.clock);
+                g.DrawElement(this.date);
+            }
 
+            this.editingPictureBox.BackgroundImage = image;
+        }
+
+        private void LoadSkin(string dirPath) {
+            this.skinDirPath = dirPath;
+            var files = Directory.EnumerateFiles(dirPath).ToArray();
+            this.images = files
+                          .Where(n => n.EndsWith(".png", StringComparison.OrdinalIgnoreCase) && int.TryParse(Path.GetFileNameWithoutExtension(n), out int _))
+                          .OrderBy(n => int.Parse(Path.GetFileNameWithoutExtension(n)))
+                          .Select(Image.Load<Argb32>)
+                          //.Select(System.Drawing.Image.FromFile)
+                          .ToArray();
+            this.json = SkinManifestJson.FromJson(File.ReadAllText(files.First(n => n.EndsWith(".json", StringComparison.OrdinalIgnoreCase))));
+            this.backgroundImage = this.images.Pick(this.json.Background.Image.ImageIndex);
         }
 
         private void Form1_DragEnter(object sender, DragEventArgs e) {
@@ -53,15 +73,8 @@ namespace MiBand4SkinEditor.SimpleGUI {
                 return;
             }
 
-            this.skinDirPath = dirPath;
-            var files = Directory.EnumerateFiles(dirPath).ToArray();
-            this.images = files
-                          .Where(n => n.EndsWith(".png", StringComparison.OrdinalIgnoreCase) && int.TryParse(Path.GetFileNameWithoutExtension(n), out int _))
-                          .OrderBy(n => int.Parse(Path.GetFileNameWithoutExtension(n)))
-                          .Select(Image.Load<Argb32>)
-                          //.Select(System.Drawing.Image.FromFile)
-                          .ToArray();
-            this.json = SkinManifestJson.FromJson(File.ReadAllText(files.First(n => n.EndsWith(".json", StringComparison.OrdinalIgnoreCase))));
+            this.LoadSkin(dirPath);
+
             this.clock = SeparatedClock.FromJson(this.json, this.images);
             //this.date = new Date(
             //    new Slice<Image<Argb32>>(
@@ -74,16 +87,7 @@ namespace MiBand4SkinEditor.SimpleGUI {
             //    Y = this.json.Date.MonthAndDay.OneLine.Number.TopLeftY,
             //};
 
-            this.date = SeparatedDate.FromJson(this.json, this.images);
-            var clockImg = this.clock.Render(1,6,4,9).ToBitmap();
-            //var dateImg = this.date.Render().ToBitmap();
-
-            this.editingPictureBox.BackgroundImage = this.images[0].ToBitmap();
-            var g = Graphics.FromImage(this.editingPictureBox.BackgroundImage);
-            g.DrawElement(clockImg, this.clock);
-            g.DrawElement(this.date);
-            g.Dispose();
-            //this.pictureBox1.Image = clockImg;
+            this.date = FlexDate.FromJson(this.json, this.images);
         }
     }
 }

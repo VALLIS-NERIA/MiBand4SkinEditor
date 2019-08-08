@@ -8,9 +8,6 @@ using SixLabors.Primitives;
 
 namespace MiBand4SkinEditor.Core.Models.UIElements {
     public abstract class ClockBase : IElement {
-        public abstract int X { get; set; }
-        public abstract int Y { get; set; }
-
         //public abstract int Width { get; }
         //public abstract int Height { get; }
 
@@ -30,6 +27,17 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
         public abstract int MinuteTenY { get; set; }
         public abstract int MinuteOneX { get; set; }
         public abstract int MinuteOneY { get; set; }
+
+        public virtual void Move(int xOffset, int yOffset) {
+            this.HourTenX += xOffset;
+            this.HourOneX += xOffset;
+            this.MinuteTenX += xOffset;
+            this.MinuteOneX += xOffset;
+            this.HourTenY += yOffset;
+            this.HourOneY += yOffset;
+            this.MinuteTenY += yOffset;
+            this.MinuteOneY += yOffset;
+        }
 
         public virtual Image<Argb32> Render() => this.Render(2, 8, 5, 7);
 

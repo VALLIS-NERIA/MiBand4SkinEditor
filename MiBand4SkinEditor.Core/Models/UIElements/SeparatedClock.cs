@@ -9,7 +9,7 @@ using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 
 namespace MiBand4SkinEditor.Core.Models.UIElements {
-    public class SeparatedClock : ClockBase {
+    public class SeparatedClock : ClockBase, IAnchorlessElement {
         public override Slice<Image<Argb32>> HourTensNumbers { get; set; }
         public override Slice<Image<Argb32>> HourOnesNumbers { get; set; }
 
@@ -25,33 +25,7 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
         public override int MinuteTenY { get; set; }
         public override int MinuteOneX { get; set; }
         public override int MinuteOneY { get; set; }
-
-        private int x = 0;
-        public override int X {
-            get => this.x;
-            set {
-                int shift = value - this.x;
-                this.HourTenX += shift;
-                this.HourOneX += shift;
-                this.MinuteTenX += shift;
-                this.MinuteOneX += shift;
-                this.x += shift;
-            }
-        }
-
-        private int y = 0;
-        public override int Y {
-            get => this.y;
-            set {
-                int shift = value - this.y;
-                this.HourTenY += shift;
-                this.HourOneY += shift;
-                this.MinuteTenY += shift;
-                this.MinuteOneY += shift;
-                this.y += shift;
-            }
-        }
-
+        
         //public override int Width {
         //    get {
         //        var (left, right) = GetMinMax(this.HourTenX, this.HourOneX, this.MinuteTenX, this.MinuteOneX);

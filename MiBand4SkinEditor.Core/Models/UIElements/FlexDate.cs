@@ -9,13 +9,27 @@ using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 
 namespace MiBand4SkinEditor.Core.Models.UIElements {
-    public class SeparatedDate : IElement {
+    public class FlexDate : IAnchoredElement {
         public Slice<Image<Argb32>> Numbers;
         public Pick<Image<Argb32>> Divider;
 
-        public int X { get; set; }
+        private int x;
+        private int y;
 
-        public int Y { get; set; }
+        public int X {
+            get => this.x;
+            set => this.MoveTo(value, this.y);
+        }
+
+        public int Y {
+            get => this.y;
+            set => this.MoveTo(this.x, value);
+        }
+
+        public void MoveTo(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
 
         public int Spacing { get; set; }
 
@@ -30,9 +44,9 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
             return (min, max);
         }
 
-        public static SeparatedDate FromJson(SkinManifestJson json, Image<Argb32>[] images) {
+        public static FlexDate FromJson(SkinManifestJson json, Image<Argb32>[] images) {
             var s = json.Date.MonthAndDay.OneLine;
-            var d = new SeparatedDate
+            var d = new FlexDate
             {
                 Numbers = images.Slice(s.Number.ImageIndex, s.Number.ImagesCount),
                 Divider = images.Pick(s.DelimiterImageIndex),
@@ -47,6 +61,7 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
         private static Image<Argb32> FlexRender(int leftTopX, int leftTopY, int spacing, params Image<Argb32>[] images) {
             return FlexRender(leftTopX, leftTopY, spacing, (IEnumerable<Image<Argb32>>) images);
         }
+
         private static Image<Argb32> FlexRender(int leftTopX, int leftTopY, int spacing, IEnumerable<Image<Argb32>> images) {
             var canvas = new Image<Argb32>(Constants.PanelWidth, Constants.PanelHeight);
             canvas.Mutate(c => c.Fill(Brushes.Solid(new Argb32(0, 0, 0, 0))));
@@ -62,6 +77,11 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
 
         public Image<Argb32> Render() {
             return FlexRender(0, 0, this.Spacing, this.Numbers[0], this.Numbers[7], this.Divider.Item, this.Numbers[2], this.Numbers[2]);
+        }
+
+        public void Move(int xOffset, int yOffset) {
+            this.x += xOffset;
+            this.y += yOffset;
         }
     }
 }

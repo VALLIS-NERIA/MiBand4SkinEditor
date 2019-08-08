@@ -7,11 +7,21 @@ using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 
 namespace MiBand4SkinEditor.Core.Models.UIElements {
-    public class CombinedClock : ClockBase {
+    public class CombinedClock : ClockBase, IAnchoredElement {
         public Slice<Image<Argb32>> Numbers { get; set; }
 
-        public override int X { get; set; }
-        public override int Y { get; set; }
+        private int x;
+        private int y;
+
+        public int X {
+            get => this.x;
+            set => this.MoveTo(value, this.y);
+        }
+
+        public int Y {
+            get => this.y;
+            set => this.MoveTo(this.x, value);
+        }
 
         #region format
 
@@ -126,6 +136,12 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
 
         private CombinedClock() { }
 
+        public void MoveTo(int x, int y) {
+            this.x = x;
+            this.x = y;
+            this.Align();
+        }
+
         public void Align() {
             this.RelativeHourTenY = this.RelativeHourOneY = this.RelativeMinuteTenY = this.RelativeMinuteOneY = this.NumberMargin;
             this.RelativeHourTenX = this.NumberMargin;
@@ -134,9 +150,11 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
             this.RelativeMinuteOneX = this.RelativeMinuteTenX + this.NumberDistance;
         }
 
-        public static CombinedClock Generate(Slice<Image<Argb32>> numbers, int? numberWidth = null, int hmDistance = 10) {
+        public static CombinedClock Generate(Slice<Image<Argb32>> numbers, int x = 0, int y = 0, int? numberWidth = null, int hmDistance = 10) {
             var c = new CombinedClock
             {
+                x = x,
+                y = y,
                 Numbers = numbers,
                 numberWidth = numberWidth, // field numberWidth
                 hourMinuteDistance = hmDistance,
