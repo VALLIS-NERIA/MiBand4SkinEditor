@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
@@ -7,21 +8,15 @@ using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 
 namespace MiBand4SkinEditor.Core.Models.UIElements {
-    public class CombinedClock : ClockBase, IAnchoredElement {
+    public class CombinedClock : ClockBase, IElement {
         public Slice<Image<Argb32>> Numbers { get; set; }
 
         private int x;
         private int y;
 
-        public int X {
-            get => this.x;
-            set => this.MoveTo(value, this.y);
-        }
+        public override int X => this.x;
 
-        public int Y {
-            get => this.y;
-            set => this.MoveTo(this.x, value);
-        }
+        public override int Y => this.y;
 
         #region format
 
@@ -136,7 +131,7 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
 
         private CombinedClock() { }
 
-        public void MoveTo(int x, int y) {
+        public override void Move(int x, int y) {
             this.x = x;
             this.x = y;
             this.Align();

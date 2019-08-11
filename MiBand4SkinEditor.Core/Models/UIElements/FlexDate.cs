@@ -9,40 +9,23 @@ using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 
 namespace MiBand4SkinEditor.Core.Models.UIElements {
-    public class FlexDate : IAnchoredElement {
-        public Slice<Image<Argb32>> Numbers;
-        public Pick<Image<Argb32>> Divider;
+    public class FlexDate :DateBase, IElement {
+        public override Slice<Image<Argb32>> Numbers { get; protected set; }
+        public override Pick<Image<Argb32>> Divider { get; protected set; }
 
         private int x;
         private int y;
 
-        public int X {
-            get => this.x;
-            set => this.MoveTo(value, this.y);
-        }
+        public override int X => this.x;
 
-        public int Y {
-            get => this.y;
-            set => this.MoveTo(this.x, value);
-        }
+        public override int Y => this.y;
 
-        public void MoveTo(int x, int y) {
+        public override void Move(int x, int y) {
             this.x = x;
             this.y = y;
         }
 
         public int Spacing { get; set; }
-
-        private static (int min, int max) GetMinMax(params int[] nums) {
-            int min = int.MaxValue;
-            int max = int.MinValue;
-            foreach (int num in nums) {
-                if (num < min) min = num;
-                if (num > max) max = num;
-            }
-
-            return (min, max);
-        }
 
         public static FlexDate FromJson(SkinManifestJson json, Image<Argb32>[] images) {
             var s = json.Date.MonthAndDay.OneLine;
@@ -50,8 +33,8 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
             {
                 Numbers = images.Slice(s.Number.ImageIndex, s.Number.ImagesCount),
                 Divider = images.Pick(s.DelimiterImageIndex),
-                X = s.Number.TopLeftX,
-                Y = s.Number.TopLeftY,
+                x = s.Number.TopLeftX,
+                y = s.Number.TopLeftY,
                 Spacing = s.Number.Spacing
             };
 
@@ -68,20 +51,15 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
             int x = leftTopX;
             int y = leftTopY;
             foreach (var image in images) {
-                canvas.Mutate(c => c.DrawImage(image, new Point(x, y), PixelColorBlendingMode.Overlay, 1));
+                canvas.Mutate(c => c.DrawImage(image, new Point(x, y), PixelColorBlendingMode.Normal, 1));
                 x += image.Width + spacing;
             }
 
             return canvas;
         }
 
-        public Image<Argb32> Render() {
-            return FlexRender(0, 0, this.Spacing, this.Numbers[0], this.Numbers[7], this.Divider.Item, this.Numbers[2], this.Numbers[2]);
-        }
-
-        public void Move(int xOffset, int yOffset) {
-            this.x += xOffset;
-            this.y += yOffset;
+        public override Image<Argb32> Render(int a, int b, int c, int d) {
+            return FlexRender(0, 0, this.Spacing, this.Numbers[a], this.Numbers[b], this.Divider.Item, this.Numbers[c], this.Numbers[d]);
         }
     }
 }

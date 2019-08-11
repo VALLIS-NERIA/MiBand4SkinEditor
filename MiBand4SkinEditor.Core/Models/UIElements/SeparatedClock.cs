@@ -9,7 +9,7 @@ using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 
 namespace MiBand4SkinEditor.Core.Models.UIElements {
-    public class SeparatedClock : ClockBase, IAnchorlessElement {
+    public class SeparatedClock :ClockBase, IElement {
         public override Slice<Image<Argb32>> HourTensNumbers { get; set; }
         public override Slice<Image<Argb32>> HourOnesNumbers { get; set; }
 
@@ -25,30 +25,19 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
         public override int MinuteTenY { get; set; }
         public override int MinuteOneX { get; set; }
         public override int MinuteOneY { get; set; }
-        
-        //public override int Width {
-        //    get {
-        //        var (left, right) = GetMinMax(this.HourTenX, this.HourOneX, this.MinuteTenX, this.MinuteOneX);
-        //        return right - left;
-        //    }
-        //}
 
-        //public override int Height {
-        //    get {
-        //        var (top, bottom) = GetMinMax(this.HourTenY, this.HourOneY, this.MinuteTenY, this.MinuteOneY);
-        //        return bottom - top;
-        //    }
-        //}
+        public override int X => 0;
+        public override int Y => 0;
 
-        private static (int min, int max) GetMinMax(params int[] nums) {
-            int min = int.MaxValue;
-            int max = int.MinValue;
-            foreach (int num in nums) {
-                if (num < min) min = num;
-                if (num > max) max = num;
-            }
-
-            return (min, max);
+        public override void Move(int xOffset, int yOffset) {
+            this.HourTenX += xOffset;
+            this.HourOneX += xOffset;
+            this.MinuteTenX += xOffset;
+            this.MinuteOneX += xOffset;
+            this.HourTenY += yOffset;
+            this.HourOneY += yOffset;
+            this.MinuteTenY += yOffset;
+            this.MinuteOneY += yOffset;
         }
 
         public static SeparatedClock FromJson(SkinManifestJson json, Image<Argb32>[] images) {

@@ -31,30 +31,5 @@ namespace MiBand4SkinEditor.Core {
 
             return Image.Load<TPixel>(memoryStream);
         }
-
-        public static System.Drawing.Bitmap RenderBitmap(this IElement element) {
-            Bitmap bitmap;
-            using (var img = element.Render()) {
-                bitmap = img.ToBitmap();
-            }
-
-            return bitmap;
-        }
-
-        public static void DrawElement(this System.Drawing.Graphics g, Models.UIElements.IElement element) {
-            g.DrawImage(element.RenderBitmap(), 0, 0);
-        }
-
-        public static void DrawImage(this System.Drawing.Graphics g, System.Drawing.Image img) {
-            g.DrawImage(img, 0, 0);
-        }
-
-        public static void DrawElement(this System.Drawing.Graphics g, Models.UIElements.IAnchoredElement element) {
-            g.DrawImage(element.RenderBitmap(), element.X, element.Y);
-        }
-
-        public static void DrawElement(this System.Drawing.Graphics g, System.Drawing.Image img, Models.UIElements.IAnchoredElement element) {
-            g.DrawImage(img, element.X, element.Y);
-        }
     }
 }
