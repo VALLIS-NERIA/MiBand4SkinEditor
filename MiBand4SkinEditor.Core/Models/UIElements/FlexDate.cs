@@ -9,7 +9,7 @@ using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 
 namespace MiBand4SkinEditor.Core.Models.UIElements {
-    public class FlexDate :DateBase, IElement {
+    public class FlexDate : DateBase, IElement {
         public override Slice<Image<Argb32>> Numbers { get; protected set; }
         public override Pick<Image<Argb32>> Divider { get; protected set; }
 
@@ -41,25 +41,8 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
             return d;
         }
 
-        private static Image<Argb32> FlexRender(int leftTopX, int leftTopY, int spacing, params Image<Argb32>[] images) {
-            return FlexRender(leftTopX, leftTopY, spacing, (IEnumerable<Image<Argb32>>) images);
-        }
-
-        private static Image<Argb32> FlexRender(int leftTopX, int leftTopY, int spacing, IEnumerable<Image<Argb32>> images) {
-            var canvas = new Image<Argb32>(Constants.PanelWidth, Constants.PanelHeight);
-            canvas.Mutate(c => c.Fill(Brushes.Solid(new Argb32(0, 0, 0, 0))));
-            int x = leftTopX;
-            int y = leftTopY;
-            foreach (var image in images) {
-                canvas.Mutate(c => c.DrawImage(image, new Point(x, y), PixelColorBlendingMode.Normal, 1));
-                x += image.Width + spacing;
-            }
-
-            return canvas;
-        }
-
         public override Image<Argb32> Render(int a, int b, int c, int d) {
-            return FlexRender(0, 0, this.Spacing, this.Numbers[a], this.Numbers[b], this.Divider.Item, this.Numbers[c], this.Numbers[d]);
+            return Flex.FlexRender(this.Spacing, this.Numbers[a], this.Numbers[b], this.Divider.Item, this.Numbers[c], this.Numbers[d]);
         }
     }
 }

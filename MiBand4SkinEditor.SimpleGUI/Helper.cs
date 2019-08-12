@@ -13,17 +13,17 @@ using Image = SixLabors.ImageSharp.Image;
 
 namespace MiBand4SkinEditor.Core {
     public static class ImageSharpExtensions {
-        public static System.Drawing.Bitmap ToBitmap <TPixel>(this Image<TPixel> image) where TPixel : struct, IPixel<TPixel> {
+        public static Bitmap ToBitmap <TPixel>(this Image<TPixel> image) where TPixel : struct, IPixel<TPixel> {
             var memoryStream = new MemoryStream();
             var imageEncoder = image.GetConfiguration().ImageFormatsManager.FindEncoder(PngFormat.Instance);
             image.Save(memoryStream, imageEncoder);
 
             memoryStream.Seek(0, SeekOrigin.Begin);
 
-            return new System.Drawing.Bitmap(memoryStream);
+            return new Bitmap(memoryStream);
         }
 
-        public static Image<TPixel> ToImageSharpImage <TPixel>(this System.Drawing.Bitmap bitmap) where TPixel : struct, IPixel<TPixel> {
+        public static Image<TPixel> ToImageSharpImage <TPixel>(this Bitmap bitmap) where TPixel : struct, IPixel<TPixel> {
             var memoryStream = new MemoryStream();
             bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
 

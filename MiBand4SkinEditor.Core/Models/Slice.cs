@@ -45,8 +45,8 @@ namespace MiBand4SkinEditor.Core.Models {
     }
 
     public class Pick <T> {
-        private T[] array;
-        private int index;
+        private readonly T[] array;
+        private readonly int index;
 
         public Pick(T[] array, int index) {
             if (array == null || index > array.Length || index < 0) {

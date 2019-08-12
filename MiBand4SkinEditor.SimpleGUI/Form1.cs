@@ -9,7 +9,7 @@ using MiBand4SkinEditor.Core;
 namespace MiBand4SkinEditor.SimpleGUI {
     public partial class Form1 : Form {
         public Form1() {
-            InitializeComponent();
+            this.InitializeComponent();
             this.vm = new ViewModel();
         }
 
@@ -36,6 +36,13 @@ namespace MiBand4SkinEditor.SimpleGUI {
 
             this.vm.LoadAssets(dirPath);
             this.Redraw();
+        }
+
+        private void Form1_Load(object sender, EventArgs e) {
+#if DEBUG
+            this.vm.LoadAssets(Directory.GetCurrentDirectory() + "\\..\\..\\..\\win95");
+            this.Redraw();
+#endif
         }
     }
 }
