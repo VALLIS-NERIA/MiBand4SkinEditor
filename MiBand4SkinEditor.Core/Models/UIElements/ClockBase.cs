@@ -8,9 +8,12 @@ using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 
 namespace MiBand4SkinEditor.Core.Models.UIElements {
-    public abstract class ClockBase : IElement {
+    public abstract class ClockBase : IElement<DateTime> {
         public abstract int X { get; }
         public abstract int Y { get; }
+
+        public DateTime Data { get; set; } = DateTime.Now;
+
         public abstract Slice<Image<Argb32>> HourTensNumbers { get; set; }
 
         public abstract Slice<Image<Argb32>> HourOnesNumbers { get; set; }
@@ -38,12 +41,12 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
                 return this.Render(time);
             }
             else {
-                return this.Render(DateTime.Now);
+                return this.Render(this.Data);
             }
         }
 
         public virtual Image<Argb32> Render(DateTime time) {
-            return this.Render(time.Hour % 10, time.Hour / 10, time.Minute % 10, time.Minute / 10);
+            return this.Render(time.Hour / 10, time.Hour % 10, time.Minute / 10, time.Minute % 10);
         }
 
         public virtual Image<Argb32> Render(int h1, int h2, int m1, int m2) {

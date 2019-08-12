@@ -7,12 +7,15 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
 namespace MiBand4SkinEditor.Core.Models.UIElements {
-    public class DayOfWeek : IElement {
+    public class DayOfWeek : IElement<int> {
         private int x;
         public int X => x;
 
         private int y;
         public int Y => y;
+
+        // 1 - Monday, 2 - Tuesday, ..., 7 or 0 - Sunday
+        public int Data { get; set; } = (int) DateTime.Now.DayOfWeek + 1;
 
         public Slice<Image<Argb32>> Numbers { get; private set; }
 
@@ -31,7 +34,11 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
         }
 
         public Image<Argb32> Render(int dow) {
-            return this.Numbers[dow];
+            return this.Numbers[dow % 7];
+        }
+
+        public Image<Argb32> Render(DateTime date) {
+            return this.Numbers[((int) date.DayOfWeek + 6) % 7];
         }
 
         public Image<Argb32> Render(System.DayOfWeek dow) {

@@ -1,23 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-//using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MiBand4SkinEditor.Core;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp;
-using Newtonsoft.Json;
-using MiBand4SkinEditor.Core.Models;
-using MiBand4SkinEditor.Core.Models.UIElements;
-using Image = SixLabors.ImageSharp.Image;
-using SkinManifestJson = MiBand4SkinEditor.Core.Models.Json.SkinManifestJson;
-using MSImage = System.Drawing.Image;
 
 namespace MiBand4SkinEditor.SimpleGUI {
     public partial class Form1 : Form {
