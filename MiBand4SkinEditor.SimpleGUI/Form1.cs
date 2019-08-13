@@ -35,12 +35,21 @@ namespace MiBand4SkinEditor.SimpleGUI {
             }
 
             this.vm.LoadAssets(dirPath);
+            foreach (var vmElement in this.vm.Elements) {
+                var control = new ElementControlView(vmElement, this.Redraw);
+                this.flowLayoutPanel1.Controls.Add(control);
+            }
             this.Redraw();
         }
 
         private void Form1_Load(object sender, EventArgs e) {
 #if DEBUG
             this.vm.LoadAssets(Directory.GetCurrentDirectory() + "\\..\\..\\..\\win95");
+
+            foreach (var vmElement in this.vm.Elements) {
+                var control = new ElementControlView(vmElement, this.Redraw);
+                this.flowLayoutPanel1.Controls.Add(control);
+            }
             this.Redraw();
 #endif
         }

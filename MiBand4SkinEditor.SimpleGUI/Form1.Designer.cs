@@ -27,6 +27,7 @@ namespace MiBand4SkinEditor.SimpleGUI {
         private void InitializeComponent() {
             this.editingPictureBox = new System.Windows.Forms.PictureBox();
             this.originBox = new System.Windows.Forms.PictureBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.editingPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.originBox)).BeginInit();
             this.SuspendLayout();
@@ -45,11 +46,19 @@ namespace MiBand4SkinEditor.SimpleGUI {
             // 
             this.originBox.AllowDrop = true;
             this.originBox.BackColor = System.Drawing.Color.Transparent;
-            this.originBox.Location = new System.Drawing.Point(138, 12);
+            this.originBox.Location = new System.Drawing.Point(668, 12);
             this.originBox.Name = "originBox";
             this.originBox.Size = new System.Drawing.Size(120, 240);
             this.originBox.TabIndex = 1;
             this.originBox.TabStop = false;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(138, 12);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(524, 240);
+            this.flowLayoutPanel1.TabIndex = 2;
             // 
             // Form1
             // 
@@ -57,6 +66,7 @@ namespace MiBand4SkinEditor.SimpleGUI {
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 264);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.originBox);
             this.Controls.Add(this.editingPictureBox);
             this.Name = "Form1";
@@ -74,6 +84,7 @@ namespace MiBand4SkinEditor.SimpleGUI {
 
         private System.Windows.Forms.PictureBox editingPictureBox;
         private System.Windows.Forms.PictureBox originBox;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
 

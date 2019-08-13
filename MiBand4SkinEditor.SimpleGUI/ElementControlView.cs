@@ -15,8 +15,16 @@ namespace MiBand4SkinEditor.SimpleGUI {
             this.InitializeComponent();
         }
 
-        private IElement element;
+        public ElementControlView(IElement element, Action callback) {
+            this.InitializeComponent();
 
+            this.element = element;
+            this.callback = callback;
+            this.RefreshElement();
+        }
+
+        private IElement element;
+        private Action callback;
         public void LoadElement(IElement element) {
             this.element = element;
             this.RefreshElement();
@@ -31,6 +39,7 @@ namespace MiBand4SkinEditor.SimpleGUI {
 
         private void Button1_Click(object sender, EventArgs e) {
             this.element.Move((int)this.numericUpDownX.Value, (int)this.numericUpDownY.Value);
+            this.callback?.Invoke();
             this.RefreshElement();
         }
     }

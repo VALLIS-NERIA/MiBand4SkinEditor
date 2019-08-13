@@ -25,6 +25,8 @@ namespace MiBand4SkinEditor.Core {
         private IElement locked;
         private IElement noBluetooth;
 
+        public IEnumerable<IElement> Elements => new IElement[] {this.clock, this.date, this.dow, this.alarm, this.locked, this.noBluetooth};
+
         public void LoadAssets(string dirPath) {
             this.skinDirPath = dirPath;
             var files = Directory.EnumerateFiles(this.skinDirPath).ToArray();
