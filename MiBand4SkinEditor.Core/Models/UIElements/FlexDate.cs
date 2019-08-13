@@ -17,8 +17,8 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
         private int y;
 
         public override int X => this.x;
-
         public override int Y => this.y;
+        public override bool Moveable => true;
 
         public override void Move(int x, int y) {
             this.x = x;

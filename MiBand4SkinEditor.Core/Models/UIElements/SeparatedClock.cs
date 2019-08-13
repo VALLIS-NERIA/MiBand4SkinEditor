@@ -28,6 +28,7 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
 
         public override int X => 0;
         public override int Y => 0;
+        public override bool Moveable => false;
 
         public override void Move(int xOffset, int yOffset) {
             this.HourTenX += xOffset;

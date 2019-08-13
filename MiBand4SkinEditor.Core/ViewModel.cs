@@ -22,7 +22,7 @@ namespace MiBand4SkinEditor.Core {
         private IElement date;
         private IElement dow;
         private IElement alarm;
-        private IElement noDisturb;
+        private IElement locked;
         private IElement noBluetooth;
 
         public void LoadAssets(string dirPath) {
@@ -44,7 +44,7 @@ namespace MiBand4SkinEditor.Core {
             this.date = FlexDate.FromJson(this.json, this.images);
             this.dow = Models.UIElements.DayOfWeek.FromJson(this.json, this.images);
             this.alarm = AlarmIcon.FromJson(this.json, this.images);
-            this.noDisturb = NoDisturbIcon.FromJson(this.json, this.images);
+            this.locked = LockIcon.FromJson(this.json, this.images);
             this.noBluetooth = BluetoothDisconnectedIcon.FromJson(this.json, this.images);
         }
 
@@ -58,7 +58,7 @@ namespace MiBand4SkinEditor.Core {
             canvas.Mutate(x => x.DrawImage(this.date.Render(DateTime.Now), new Point(this.date.X, this.date.Y), PixelColorBlendingMode.Normal, 1));
             canvas.Mutate(x => x.DrawImage(this.dow.Render(DateTime.Now), new Point(this.dow.X, this.dow.Y), PixelColorBlendingMode.Normal, 1));
             canvas.Mutate(x => x.DrawImage(this.alarm.Render(true), new Point(this.alarm.X, this.alarm.Y), PixelColorBlendingMode.Normal, 1));
-            canvas.Mutate(x => x.DrawImage(this.noDisturb.Render(true), new Point(this.noDisturb.X, this.noDisturb.Y), PixelColorBlendingMode.Normal, 1));
+            canvas.Mutate(x => x.DrawImage(this.locked.Render(true), new Point(this.locked.X, this.locked.Y), PixelColorBlendingMode.Normal, 1));
             canvas.Mutate(x => x.DrawImage(this.noBluetooth.Render(true), new Point(this.noBluetooth.X, this.noBluetooth.Y), PixelColorBlendingMode.Normal, 1));
 
             return canvas;

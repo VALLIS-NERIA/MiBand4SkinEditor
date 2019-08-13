@@ -9,8 +9,10 @@ using SixLabors.Primitives;
 
 namespace MiBand4SkinEditor.Core.Models.UIElements {
     public abstract class ClockBase : IElement<DateTime> {
+        public string Name => "Clock";
         public abstract int X { get; }
         public abstract int Y { get; }
+        public abstract bool Moveable { get; }
 
         public DateTime Data { get; set; } = DateTime.Now;
 

@@ -17,6 +17,7 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
         public override int X => this.x;
 
         public override int Y => this.y;
+        public override bool Moveable => true;
 
         #region format
 

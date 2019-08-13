@@ -9,9 +9,11 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
     public abstract class DateBase : IElement<DateTime> {
         public abstract Slice<Image<Argb32>> Numbers { get; protected set; }
         public abstract Pick<Image<Argb32>> Divider { get; protected set; }
+        public string Name => "Date";
 
         public abstract int X { get; }
         public abstract int Y { get; }
+        public abstract bool Moveable { get; }
 
         public DateTime Data { get; set; } = DateTime.Now;
         

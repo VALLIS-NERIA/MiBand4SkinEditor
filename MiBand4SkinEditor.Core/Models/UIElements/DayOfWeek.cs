@@ -8,11 +8,14 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace MiBand4SkinEditor.Core.Models.UIElements {
     public class DayOfWeek : IElement<int> {
+        public string Name => "Week";
+
         private int x;
         public int X => this.x;
 
         private int y;
         public int Y => this.y;
+        public bool Moveable => true;
 
         // 1 - Monday, 2 - Tuesday, ..., 7 or 0 - Sunday
         public int Data { get; set; } = (int) DateTime.Now.DayOfWeek + 1;

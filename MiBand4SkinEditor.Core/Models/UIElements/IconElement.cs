@@ -7,8 +7,10 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace MiBand4SkinEditor.Core.Models.UIElements {
     public abstract class IconElement : IElement<bool> {
+        public abstract string Name { get; }
         public int X { get; protected set; }
         public int Y { get; protected set; }
+        public abstract bool Moveable { get; }
 
         public Pick<Image<Argb32>> Image;
 
@@ -31,6 +33,8 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
     }
 
     public class AlarmIcon : IconElement {
+        public override string Name => "Alarm";
+        public override bool Moveable => true;
         private AlarmIcon() { }
         
         public static AlarmIcon FromJson(SkinManifestJson json, Image<Argb32>[] images) {
@@ -43,11 +47,13 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
         }
     }
 
-    public class NoDisturbIcon : IconElement {
-        private NoDisturbIcon() { }
+    public class LockIcon : IconElement {
+        public override string Name => "Lock";
+        public override bool Moveable => true;
+        private LockIcon() { }
 
-        public static NoDisturbIcon FromJson(SkinManifestJson json, Image<Argb32>[] images) {
-            var a = new NoDisturbIcon();
+        public static LockIcon FromJson(SkinManifestJson json, Image<Argb32>[] images) {
+            var a = new LockIcon();
             a.Image = images.Pick(json.Status.Lock.ImageIndexOn);
             a.X = json.Status.Lock.Coordinates.X;
             a.Y = json.Status.Lock.Coordinates.Y;
@@ -57,6 +63,8 @@ namespace MiBand4SkinEditor.Core.Models.UIElements {
     }
 
     public class BluetoothDisconnectedIcon : IconElement {
+        public override string Name => "Bluetooth";
+        public override bool Moveable => true;
         private BluetoothDisconnectedIcon() { }
 
         public static BluetoothDisconnectedIcon FromJson(SkinManifestJson json, Image<Argb32>[] images) {
